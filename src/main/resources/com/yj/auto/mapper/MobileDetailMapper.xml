@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yj.auto.mapper.MobileDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.yj.auto.entity.MobileDetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="brand" property="brand" jdbcType="VARCHAR" />
+    <result column="platform" property="platform" jdbcType="VARCHAR" />
+    <result column="os_version" property="osVersion" jdbcType="VARCHAR" />
+    <result column="screen_size" property="screenSize" jdbcType="VARCHAR" />
+    <result column="device_id" property="deviceId" jdbcType="VARCHAR" />
+    <result column="client_id" property="clientId" jdbcType="VARCHAR" />
+    <result column="udid" property="udid" jdbcType="VARCHAR" />
+    <result column="slave_id" property="slaveId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="ready_state" property="readyState" jdbcType="INTEGER" />
+    <result column="device_type" property="deviceType" jdbcType="INTEGER" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="picture_url" property="pictureUrl" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="last_check_time" property="lastCheckTime" jdbcType="TIMESTAMP" />
+    <result column="heartbeat_last_time" property="heartbeatLastTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mobile_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yj.auto.entity.MobileDetail" >
+    insert into mobile_detail (id, name, brand, 
+      platform, os_version, screen_size, 
+      device_id, client_id, udid, 
+      slave_id, status, ready_state, 
+      device_type, password, picture_url, 
+      location, last_check_time, heartbeat_last_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, 
+      #{platform,jdbcType=VARCHAR}, #{osVersion,jdbcType=VARCHAR}, #{screenSize,jdbcType=VARCHAR}, 
+      #{deviceId,jdbcType=VARCHAR}, #{clientId,jdbcType=VARCHAR}, #{udid,jdbcType=VARCHAR}, 
+      #{slaveId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{readyState,jdbcType=INTEGER}, 
+      #{deviceType,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{pictureUrl,jdbcType=VARCHAR}, 
+      #{location,jdbcType=VARCHAR}, #{lastCheckTime,jdbcType=TIMESTAMP}, #{heartbeatLastTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.yj.auto.entity.MobileDetail" >
+    update mobile_detail
+    set name = #{name,jdbcType=VARCHAR},
+      brand = #{brand,jdbcType=VARCHAR},
+      platform = #{platform,jdbcType=VARCHAR},
+      os_version = #{osVersion,jdbcType=VARCHAR},
+      screen_size = #{screenSize,jdbcType=VARCHAR},
+      device_id = #{deviceId,jdbcType=VARCHAR},
+      client_id = #{clientId,jdbcType=VARCHAR},
+      udid = #{udid,jdbcType=VARCHAR},
+      slave_id = #{slaveId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      ready_state = #{readyState,jdbcType=INTEGER},
+      device_type = #{deviceType,jdbcType=INTEGER},
+      password = #{password,jdbcType=VARCHAR},
+      picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      last_check_time = #{lastCheckTime,jdbcType=TIMESTAMP},
+      heartbeat_last_time = #{heartbeatLastTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, name, brand, platform, os_version, screen_size, device_id, client_id, 
+    udid, slave_id, status, ready_state, device_type, password, picture_url, location, 
+    last_check_time, heartbeat_last_time
+    from mobile_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, name, brand, platform, os_version, screen_size, device_id, client_id, 
+    udid, slave_id, status, ready_state, device_type, password, picture_url, location, 
+    last_check_time, heartbeat_last_time
+    from mobile_detail
+  </select>
+</mapper>

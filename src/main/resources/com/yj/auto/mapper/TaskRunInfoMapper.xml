@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yj.auto.mapper.TaskRunInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.yj.auto.entity.TaskRunInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="task_id" property="taskId" jdbcType="VARCHAR" />
+    <result column="feature_id" property="featureId" jdbcType="INTEGER" />
+    <result column="execute_status" property="executeStatus" jdbcType="INTEGER" />
+    <result column="mobile_id" property="mobileId" jdbcType="INTEGER" />
+    <result column="platform" property="platform" jdbcType="INTEGER" />
+    <result column="pass_rate" property="passRate" jdbcType="VARCHAR" />
+    <result column="scenarios_num" property="scenariosNum" jdbcType="INTEGER" />
+    <result column="scenario_passed_num" property="scenarioPassedNum" jdbcType="INTEGER" />
+    <result column="scenario_failed_num" property="scenarioFailedNum" jdbcType="INTEGER" />
+    <result column="steps_num" property="stepsNum" jdbcType="INTEGER" />
+    <result column="step_passed_num" property="stepPassedNum" jdbcType="INTEGER" />
+    <result column="step_skipped_num" property="stepSkippedNum" jdbcType="INTEGER" />
+    <result column="step_failed_num" property="stepFailedNum" jdbcType="INTEGER" />
+    <result column="report_path" property="reportPath" jdbcType="VARCHAR" />
+    <result column="elapsed_time" property="elapsedTime" jdbcType="VARCHAR" />
+    <result column="jenkins_job_name" property="jenkinsJobName" jdbcType="VARCHAR" />
+    <result column="jenkins_build_number" property="jenkinsBuildNumber" jdbcType="INTEGER" />
+    <result column="execute_starttime" property="executeStarttime" jdbcType="TIMESTAMP" />
+    <result column="execute_end_time" property="executeEndTime" jdbcType="TIMESTAMP" />
+    <result column="is_retry_at_end" property="isRetryAtEnd" jdbcType="INTEGER" />
+    <result column="retryT_times" property="retrytTimes" jdbcType="INTEGER" />
+    <result column="html_report_name" property="htmlReportName" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="trigger_id" property="triggerId" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from task_run_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yj.auto.entity.TaskRunInfo" >
+    insert into task_run_info (id, task_id, feature_id, 
+      execute_status, mobile_id, platform, 
+      pass_rate, scenarios_num, scenario_passed_num, 
+      scenario_failed_num, steps_num, step_passed_num, 
+      step_skipped_num, step_failed_num, report_path, 
+      elapsed_time, jenkins_job_name, jenkins_build_number, 
+      execute_starttime, execute_end_time, is_retry_at_end, 
+      retryT_times, html_report_name, status, 
+      operator, create_time, update_time, 
+      trigger_id)
+    values (#{id,jdbcType=INTEGER}, #{taskId,jdbcType=VARCHAR}, #{featureId,jdbcType=INTEGER}, 
+      #{executeStatus,jdbcType=INTEGER}, #{mobileId,jdbcType=INTEGER}, #{platform,jdbcType=INTEGER}, 
+      #{passRate,jdbcType=VARCHAR}, #{scenariosNum,jdbcType=INTEGER}, #{scenarioPassedNum,jdbcType=INTEGER}, 
+      #{scenarioFailedNum,jdbcType=INTEGER}, #{stepsNum,jdbcType=INTEGER}, #{stepPassedNum,jdbcType=INTEGER}, 
+      #{stepSkippedNum,jdbcType=INTEGER}, #{stepFailedNum,jdbcType=INTEGER}, #{reportPath,jdbcType=VARCHAR}, 
+      #{elapsedTime,jdbcType=VARCHAR}, #{jenkinsJobName,jdbcType=VARCHAR}, #{jenkinsBuildNumber,jdbcType=INTEGER}, 
+      #{executeStarttime,jdbcType=TIMESTAMP}, #{executeEndTime,jdbcType=TIMESTAMP}, #{isRetryAtEnd,jdbcType=INTEGER}, 
+      #{retrytTimes,jdbcType=INTEGER}, #{htmlReportName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{operator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{triggerId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.yj.auto.entity.TaskRunInfo" >
+    update task_run_info
+    set task_id = #{taskId,jdbcType=VARCHAR},
+      feature_id = #{featureId,jdbcType=INTEGER},
+      execute_status = #{executeStatus,jdbcType=INTEGER},
+      mobile_id = #{mobileId,jdbcType=INTEGER},
+      platform = #{platform,jdbcType=INTEGER},
+      pass_rate = #{passRate,jdbcType=VARCHAR},
+      scenarios_num = #{scenariosNum,jdbcType=INTEGER},
+      scenario_passed_num = #{scenarioPassedNum,jdbcType=INTEGER},
+      scenario_failed_num = #{scenarioFailedNum,jdbcType=INTEGER},
+      steps_num = #{stepsNum,jdbcType=INTEGER},
+      step_passed_num = #{stepPassedNum,jdbcType=INTEGER},
+      step_skipped_num = #{stepSkippedNum,jdbcType=INTEGER},
+      step_failed_num = #{stepFailedNum,jdbcType=INTEGER},
+      report_path = #{reportPath,jdbcType=VARCHAR},
+      elapsed_time = #{elapsedTime,jdbcType=VARCHAR},
+      jenkins_job_name = #{jenkinsJobName,jdbcType=VARCHAR},
+      jenkins_build_number = #{jenkinsBuildNumber,jdbcType=INTEGER},
+      execute_starttime = #{executeStarttime,jdbcType=TIMESTAMP},
+      execute_end_time = #{executeEndTime,jdbcType=TIMESTAMP},
+      is_retry_at_end = #{isRetryAtEnd,jdbcType=INTEGER},
+      retryT_times = #{retrytTimes,jdbcType=INTEGER},
+      html_report_name = #{htmlReportName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      operator = #{operator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      trigger_id = #{triggerId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, task_id, feature_id, execute_status, mobile_id, platform, pass_rate, scenarios_num, 
+    scenario_passed_num, scenario_failed_num, steps_num, step_passed_num, step_skipped_num, 
+    step_failed_num, report_path, elapsed_time, jenkins_job_name, jenkins_build_number, 
+    execute_starttime, execute_end_time, is_retry_at_end, retryT_times, html_report_name, 
+    status, operator, create_time, update_time, trigger_id
+    from task_run_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, task_id, feature_id, execute_status, mobile_id, platform, pass_rate, scenarios_num, 
+    scenario_passed_num, scenario_failed_num, steps_num, step_passed_num, step_skipped_num, 
+    step_failed_num, report_path, elapsed_time, jenkins_job_name, jenkins_build_number, 
+    execute_starttime, execute_end_time, is_retry_at_end, retryT_times, html_report_name, 
+    status, operator, create_time, update_time, trigger_id
+    from task_run_info
+  </select>
+</mapper>

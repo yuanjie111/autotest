@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yj.auto.mapper.TaskDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.yj.auto.entity.TaskDetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="test_package" property="testPackage" jdbcType="VARCHAR" />
+    <result column="build_type" property="buildType" jdbcType="INTEGER" />
+    <result column="task_type" property="taskType" jdbcType="INTEGER" />
+    <result column="run_type" property="runType" jdbcType="INTEGER" />
+    <result column="job_run_type" property="jobRunType" jdbcType="INTEGER" />
+    <result column="mobile_platform" property="mobilePlatform" jdbcType="INTEGER" />
+    <result column="device_info" property="deviceInfo" jdbcType="VARCHAR" />
+    <result column="execute_time" property="executeTime" jdbcType="VARCHAR" />
+    <result column="execute_end_time" property="executeEndTime" jdbcType="TIMESTAMP" />
+    <result column="case_tag" property="caseTag" jdbcType="VARCHAR" />
+    <result column="report_recipients" property="reportRecipients" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="triggerUrl" property="triggerurl" jdbcType="VARCHAR" />
+    <result column="expression" property="expression" jdbcType="VARCHAR" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from task_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yj.auto.entity.TaskDetail" >
+    insert into task_detail (id, name, test_package, 
+      build_type, task_type, run_type, 
+      job_run_type, mobile_platform, device_info, 
+      execute_time, execute_end_time, case_tag, 
+      report_recipients, status, triggerUrl, 
+      expression, operator, create_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{testPackage,jdbcType=VARCHAR}, 
+      #{buildType,jdbcType=INTEGER}, #{taskType,jdbcType=INTEGER}, #{runType,jdbcType=INTEGER}, 
+      #{jobRunType,jdbcType=INTEGER}, #{mobilePlatform,jdbcType=INTEGER}, #{deviceInfo,jdbcType=VARCHAR}, 
+      #{executeTime,jdbcType=VARCHAR}, #{executeEndTime,jdbcType=TIMESTAMP}, #{caseTag,jdbcType=VARCHAR}, 
+      #{reportRecipients,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{triggerurl,jdbcType=VARCHAR}, 
+      #{expression,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.yj.auto.entity.TaskDetail" >
+    update task_detail
+    set name = #{name,jdbcType=VARCHAR},
+      test_package = #{testPackage,jdbcType=VARCHAR},
+      build_type = #{buildType,jdbcType=INTEGER},
+      task_type = #{taskType,jdbcType=INTEGER},
+      run_type = #{runType,jdbcType=INTEGER},
+      job_run_type = #{jobRunType,jdbcType=INTEGER},
+      mobile_platform = #{mobilePlatform,jdbcType=INTEGER},
+      device_info = #{deviceInfo,jdbcType=VARCHAR},
+      execute_time = #{executeTime,jdbcType=VARCHAR},
+      execute_end_time = #{executeEndTime,jdbcType=TIMESTAMP},
+      case_tag = #{caseTag,jdbcType=VARCHAR},
+      report_recipients = #{reportRecipients,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      triggerUrl = #{triggerurl,jdbcType=VARCHAR},
+      expression = #{expression,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, name, test_package, build_type, task_type, run_type, job_run_type, mobile_platform, 
+    device_info, execute_time, execute_end_time, case_tag, report_recipients, status, 
+    triggerUrl, expression, operator, create_time, update_time
+    from task_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, name, test_package, build_type, task_type, run_type, job_run_type, mobile_platform, 
+    device_info, execute_time, execute_end_time, case_tag, report_recipients, status, 
+    triggerUrl, expression, operator, create_time, update_time
+    from task_detail
+  </select>
+</mapper>

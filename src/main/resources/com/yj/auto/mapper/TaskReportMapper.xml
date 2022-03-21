@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yj.auto.mapper.TaskReportMapper" >
+  <resultMap id="BaseResultMap" type="com.yj.auto.entity.TaskReport" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="task_id" property="taskId" jdbcType="INTEGER" />
+    <result column="trigger_id" property="triggerId" jdbcType="INTEGER" />
+    <result column="test_package" property="testPackage" jdbcType="VARCHAR" />
+    <result column="features_num" property="featuresNum" jdbcType="INTEGER" />
+    <result column="feature_fassed_num" property="featureFassedNum" jdbcType="INTEGER" />
+    <result column="feature_failed_num" property="featureFailedNum" jdbcType="INTEGER" />
+    <result column="scenarios_num" property="scenariosNum" jdbcType="INTEGER" />
+    <result column="scenario_passed_num" property="scenarioPassedNum" jdbcType="INTEGER" />
+    <result column="scenario_failed_num" property="scenarioFailedNum" jdbcType="INTEGER" />
+    <result column="steps_num" property="stepsNum" jdbcType="INTEGER" />
+    <result column="step_passed_num" property="stepPassedNum" jdbcType="INTEGER" />
+    <result column="step_skipped_num" property="stepSkippedNum" jdbcType="INTEGER" />
+    <result column="step_failed_num" property="stepFailedNum" jdbcType="INTEGER" />
+    <result column="case_pass_rate" property="casePassRate" jdbcType="VARCHAR" />
+    <result column="feature_pass_rate" property="featurePassRate" jdbcType="VARCHAR" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="elapsed_time" property="elapsedTime" jdbcType="VARCHAR" />
+    <result column="execute_time" property="executeTime" jdbcType="TIMESTAMP" />
+    <result column="execute_end_time" property="executeEndTime" jdbcType="TIMESTAMP" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from task_report
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yj.auto.entity.TaskReport" >
+    insert into task_report (id, task_id, trigger_id, 
+      test_package, features_num, feature_fassed_num, 
+      feature_failed_num, scenarios_num, scenario_passed_num, 
+      scenario_failed_num, steps_num, step_passed_num, 
+      step_skipped_num, step_failed_num, case_pass_rate, 
+      feature_pass_rate, operator, elapsed_time, 
+      execute_time, execute_end_time, createTime, 
+      updateTime, status)
+    values (#{id,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER}, #{triggerId,jdbcType=INTEGER}, 
+      #{testPackage,jdbcType=VARCHAR}, #{featuresNum,jdbcType=INTEGER}, #{featureFassedNum,jdbcType=INTEGER}, 
+      #{featureFailedNum,jdbcType=INTEGER}, #{scenariosNum,jdbcType=INTEGER}, #{scenarioPassedNum,jdbcType=INTEGER}, 
+      #{scenarioFailedNum,jdbcType=INTEGER}, #{stepsNum,jdbcType=INTEGER}, #{stepPassedNum,jdbcType=INTEGER}, 
+      #{stepSkippedNum,jdbcType=INTEGER}, #{stepFailedNum,jdbcType=INTEGER}, #{casePassRate,jdbcType=VARCHAR}, 
+      #{featurePassRate,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, #{elapsedTime,jdbcType=VARCHAR}, 
+      #{executeTime,jdbcType=TIMESTAMP}, #{executeEndTime,jdbcType=TIMESTAMP}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.yj.auto.entity.TaskReport" >
+    update task_report
+    set task_id = #{taskId,jdbcType=INTEGER},
+      trigger_id = #{triggerId,jdbcType=INTEGER},
+      test_package = #{testPackage,jdbcType=VARCHAR},
+      features_num = #{featuresNum,jdbcType=INTEGER},
+      feature_fassed_num = #{featureFassedNum,jdbcType=INTEGER},
+      feature_failed_num = #{featureFailedNum,jdbcType=INTEGER},
+      scenarios_num = #{scenariosNum,jdbcType=INTEGER},
+      scenario_passed_num = #{scenarioPassedNum,jdbcType=INTEGER},
+      scenario_failed_num = #{scenarioFailedNum,jdbcType=INTEGER},
+      steps_num = #{stepsNum,jdbcType=INTEGER},
+      step_passed_num = #{stepPassedNum,jdbcType=INTEGER},
+      step_skipped_num = #{stepSkippedNum,jdbcType=INTEGER},
+      step_failed_num = #{stepFailedNum,jdbcType=INTEGER},
+      case_pass_rate = #{casePassRate,jdbcType=VARCHAR},
+      feature_pass_rate = #{featurePassRate,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      elapsed_time = #{elapsedTime,jdbcType=VARCHAR},
+      execute_time = #{executeTime,jdbcType=TIMESTAMP},
+      execute_end_time = #{executeEndTime,jdbcType=TIMESTAMP},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, task_id, trigger_id, test_package, features_num, feature_fassed_num, feature_failed_num, 
+    scenarios_num, scenario_passed_num, scenario_failed_num, steps_num, step_passed_num, 
+    step_skipped_num, step_failed_num, case_pass_rate, feature_pass_rate, operator, elapsed_time, 
+    execute_time, execute_end_time, createTime, updateTime, status
+    from task_report
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, task_id, trigger_id, test_package, features_num, feature_fassed_num, feature_failed_num, 
+    scenarios_num, scenario_passed_num, scenario_failed_num, steps_num, step_passed_num, 
+    step_skipped_num, step_failed_num, case_pass_rate, feature_pass_rate, operator, elapsed_time, 
+    execute_time, execute_end_time, createTime, updateTime, status
+    from task_report
+  </select>
+</mapper>
