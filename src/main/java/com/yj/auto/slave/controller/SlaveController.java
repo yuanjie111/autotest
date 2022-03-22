@@ -2,6 +2,7 @@ package com.yj.auto.slave.controller;
 
 import com.yj.auto.common.Result;
 import com.yj.auto.slave.dto.AddSlaveRequest;
+import com.yj.auto.slave.dto.GetAllSlaveRequest;
 import com.yj.auto.slave.service.SlaveService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,4 +21,10 @@ public class SlaveController {
     public Result addSlave(@RequestBody AddSlaveRequest addSlaveRequest){
         return slaveService.addSlave(addSlaveRequest);
     }
+
+    @RequestMapping("getSalve")
+    public Result getAllSlave(@RequestBody GetAllSlaveRequest getAllSlaveRequest){
+        return slaveService.findSlave(getAllSlaveRequest);
+    }
+
 }

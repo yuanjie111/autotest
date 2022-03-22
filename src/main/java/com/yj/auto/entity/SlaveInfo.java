@@ -290,4 +290,19 @@ public class SlaveInfo {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+    @Override
+    public String toString() {
+        return "SlaveInfo{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", ip='" + ip + '\'' +
+                ", token='" + token + '\'' +
+                ", status=" + status +
+                ", owner='" + owner + '\'' +
+                ", password='" + password + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }
