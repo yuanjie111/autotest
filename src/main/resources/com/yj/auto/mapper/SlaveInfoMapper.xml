@@ -41,11 +41,40 @@
       limit #{limit}
       offset #{offset}
     </select>
-  <select id="getAllSalveCount" resultType="java.lang.Long">
+  <select id="getSalveCount" resultType="java.lang.Long">
     select
     count(id)
     from slave_info
-    where status = 1
+    where 1 = 1
+    <trim  suffixOverrides="and" >
+      <if test="record.id != null" >
+        and id = #{record.id}
+      </if>
+      <if test="record.name != null" >
+        and name = #{record.name}
+      </if>
+      <if test="record.ip != null" >
+        and ip = #{record.ip}
+      </if>
+      <if test="record.token != null" >
+        and token = #{record.token}
+      </if>
+      <if test="record.status != null" >
+        and status = #{record.status}
+      </if>
+      <if test="record.owner != null" >
+        and owner = #{record.owner}
+      </if>
+      <if test="record.password != null" >
+        and password = #{record.password}
+      </if>
+      <if test="record.createTime != null" >
+        and create_time = #{record.create_time}
+      </if>
+      <if test="record.updateTime != null" >
+        and update_time = #{record.update_time}
+      </if>
+    </trim>
   </select>
   <select id="selective" resultType="com.yj.auto.entity.SlaveInfo">
     select
@@ -53,32 +82,32 @@
     from slave_info
     where 1 = 1
     <trim  suffixOverrides="and" >
-      <if test="id != null" >
-        id = #{id} and
+      <if test="record.id != null" >
+        and id = #{record.id}
       </if>
-      <if test="name != null" >
-        name = #{name} and
+      <if test="record.name != null" >
+        and name = #{record.name}
       </if>
-      <if test="ip != null" >
-        ip = #{ip} and
+      <if test="record.ip != null" >
+        and ip = #{record.ip}
       </if>
-      <if test="token != null" >
-        token = #{token} and
+      <if test="record.token != null" >
+        and token = #{record.token}
       </if>
-      <if test="status != null" >
-        status = #{status} and
+      <if test="record.status != null" >
+        and status = #{record.status}
       </if>
-      <if test="owner != null" >
-        owner = #{owner} and
+      <if test="record.owner != null" >
+        and owner = #{record.owner}
       </if>
-      <if test="password != null" >
-        password = #{password} and
+      <if test="record.password != null" >
+        and password = #{record.password}
       </if>
-      <if test="createTime != null" >
-        create_time = #{create_time} and
+      <if test="record.createTime != null" >
+        and create_time = #{record.create_time}
       </if>
-      <if test="updateTime != null" >
-        update_time = #{update_time} and
+      <if test="record.updateTime != null" >
+        and update_time = #{record.update_time}
       </if>
     </trim>
   </select>

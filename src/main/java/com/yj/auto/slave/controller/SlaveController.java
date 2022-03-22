@@ -3,7 +3,7 @@ package com.yj.auto.slave.controller;
 import com.yj.auto.common.Result;
 import com.yj.auto.slave.dto.AddSlaveRequest;
 import com.yj.auto.slave.dto.DeleteSlave;
-import com.yj.auto.slave.dto.GetAllSlaveRequest;
+import com.yj.auto.slave.dto.FindSlaveRequest;
 import com.yj.auto.slave.dto.UpdateSlave;
 import com.yj.auto.slave.service.SlaveService;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,8 +25,8 @@ public class SlaveController {
     }
 
     @RequestMapping("getSalve")
-    public Result getAllSlave(@RequestBody GetAllSlaveRequest getAllSlaveRequest){
-        return slaveService.findSlave(getAllSlaveRequest);
+    public Result getAllSlave(@RequestBody FindSlaveRequest findSlaveRequest){
+        return slaveService.findSlave(findSlaveRequest);
     }
 
     @RequestMapping("update")
