@@ -1,9 +1,16 @@
 package com.yj.auto.common;
 
+import com.alibaba.fastjson.JSON;
 import com.yj.auto.exceptions.ServiceException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -26,6 +33,14 @@ public class ExceptionAdvice {
     @ResponseBody
     public Result handleIllegalArgumentException(IllegalArgumentException illegalArgumentException){
         return Result.builder().code("300").msg(illegalArgumentException.getMessage()).build();
+    }
+
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    @ResponseBody
+    public Result handleIllegalArgumentException(MethodArgumentNotValidException methodArgumentNotValidException){
+        BindingResult bindingResult = methodArgumentNotValidException.getBindingResult();
+        List<String> collect = bindingResult.getAllErrors().stream().map(item -> item.getDefaultMessage()).collect(Collectors.toList());
+        return Result.builder().code("400").msg(JSON.toJSONString(collect)).build();
     }
 
 

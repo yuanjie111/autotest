@@ -6,9 +6,10 @@ import javax.validation.constraints.NotNull;
 
 @Data
 public class AddMobileRequest {
-    @NotNull
+
+    @NotNull(message = "name不能为空")
     private String name;
-    @NotNull
+    @NotNull(message = "brand不能为空")
     private String brand;
     @NotNull
     private String platform;

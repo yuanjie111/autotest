@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("mobile")
@@ -20,7 +21,7 @@ public class MobileController {
     MobileService mobileService;
 
     @RequestMapping("add")
-    public Result addMobile(@RequestBody AddMobileRequest addMobileRequest){
+    public Result addMobile(@RequestBody @Valid AddMobileRequest addMobileRequest){
         return mobileService.addMobile(addMobileRequest);
     }
 
