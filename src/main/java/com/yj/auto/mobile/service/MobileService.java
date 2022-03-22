@@ -4,8 +4,11 @@ import com.yj.auto.common.PageResult;
 import com.yj.auto.common.Result;
 import com.yj.auto.entity.MobileDetail;
 import com.yj.auto.mapper.MobileDetailMapper;
+import com.yj.auto.mobile.dto.DeleteMobileRequest;
 import com.yj.auto.mobile.dto.FindMobileRequest;
 import com.yj.auto.mobile.dto.AddMobileRequest;
+import com.yj.auto.mobile.dto.UpdateMobileRequest;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -36,6 +39,25 @@ public class MobileService {
         int result = mobileDetailMapper.insertSelective(mobileDetail);
         Assert.isTrue(result>0,"添加失败");
         return Result.success("添加成功");
+    }
+
+    //修改手机
+    public Result updateMobile(UpdateMobileRequest updateMobileRequest){
+        MobileDetail mobileDetail = new MobileDetail();
+        BeanUtils.copyProperties(updateMobileRequest,mobileDetail);
+        int result = mobileDetailMapper.updateByPrimaryKeySelective(mobileDetail);
+        Assert.isTrue(result > 0,"修改失败");
+        return Result.success("修改成功");
+    }
+
+    //下线手机
+    public Result deleteMobile(DeleteMobileRequest deleteMobileRequest){
+        MobileDetail mobileDetail = new MobileDetail();
+        BeanUtils.copyProperties(deleteMobileRequest,mobileDetail);
+        mobileDetail.setReadyState(2);
+        int result = mobileDetailMapper.updateByPrimaryKeySelective(mobileDetail);
+        Assert.isTrue(result > 0,"删除失败");
+        return Result.success("删除成功");
     }
 
 }

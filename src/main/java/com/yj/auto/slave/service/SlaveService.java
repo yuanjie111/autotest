@@ -21,6 +21,7 @@ public class SlaveService {
     @Resource
     private SlaveInfoMapper slaveInfoMapper;
 
+//    添加slave
     public Result addSlave(AddSlaveRequest addSlaveRequest) {
         SlaveInfo slaveInfo = new SlaveInfo();
         BeanUtils.copyProperties(addSlaveRequest, slaveInfo);
@@ -29,6 +30,7 @@ public class SlaveService {
         return Result.success("添加成功");
     }
 
+//    查询salve
     public Result findSlave(FindSlaveRequest findSlaveRequest) {
         SlaveInfo slaveInfo = new SlaveInfo();
         BeanUtils.copyProperties(findSlaveRequest, slaveInfo);
@@ -38,6 +40,7 @@ public class SlaveService {
         return Result.success(slaveResult);
     }
 
+//    修改slave信息
     public Result updateSlave(UpdateSlave updateSlave) {
         SlaveInfo slaveInfo = new SlaveInfo();
         BeanUtils.copyProperties(updateSlave, slaveInfo);
@@ -47,8 +50,12 @@ public class SlaveService {
         return Result.success("更新成功");
     }
 
+//    slave下线
     public Result deleteSlave(DeleteSlave deleteSlave) {
-        int result = slaveInfoMapper.deleteByPrimaryKey(deleteSlave.getId());
+        SlaveInfo slaveInfo = new SlaveInfo();
+        BeanUtils.copyProperties(deleteSlave, slaveInfo);
+        slaveInfo.setStatus(0);
+        int result = slaveInfoMapper.updateByPrimaryKeySelective(slaveInfo);
         Assert.isTrue(result > 0, "删除失败");
         return Result.success("删除成功");
     }

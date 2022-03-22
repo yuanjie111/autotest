@@ -2,7 +2,9 @@ package com.yj.auto.mobile.controller;
 
 import com.yj.auto.common.Result;
 import com.yj.auto.mobile.dto.AddMobileRequest;
+import com.yj.auto.mobile.dto.DeleteMobileRequest;
 import com.yj.auto.mobile.dto.FindMobileRequest;
+import com.yj.auto.mobile.dto.UpdateMobileRequest;
 import com.yj.auto.mobile.service.MobileService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +27,16 @@ public class MobileController {
     @RequestMapping("find")
     public Result findMobile(@RequestBody FindMobileRequest findMobileRequest){
         return mobileService.findMobile(findMobileRequest);
+    }
+
+    @RequestMapping("update")
+    public Result updateMobile(@RequestBody UpdateMobileRequest updateMobileRequest){
+        return mobileService.updateMobile(updateMobileRequest);
+    }
+
+    @RequestMapping("delete")
+    public Result deleteMobile(@RequestBody DeleteMobileRequest deleteMobileRequest){
+        return mobileService.deleteMobile(deleteMobileRequest);
     }
 
 
