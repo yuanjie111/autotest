@@ -38,6 +38,8 @@ public interface SlaveInfoMapper {
      */
     SlaveInfo selectByPrimaryKey(Long id);
 
+    List<SlaveInfo> selective(SlaveInfo record);
+
     Long getAllSalveCount();
 
     List<SlaveInfo> selectAll(@Param("limit") Integer limit,@Param("offset")  Integer offset);

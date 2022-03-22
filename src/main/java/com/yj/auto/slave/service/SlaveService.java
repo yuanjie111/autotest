@@ -5,7 +5,9 @@ import com.yj.auto.common.Result;
 import com.yj.auto.entity.SlaveInfo;
 import com.yj.auto.mapper.SlaveInfoMapper;
 import com.yj.auto.slave.dto.AddSlaveRequest;
+import com.yj.auto.slave.dto.DeleteSlave;
 import com.yj.auto.slave.dto.GetAllSlaveRequest;
+import com.yj.auto.slave.dto.UpdateSlave;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -35,5 +37,20 @@ public class SlaveService {
         Long total = slaveInfoMapper.getAllSalveCount();
         PageResult<SlaveInfo> slaveResult = PageResult.buildResult(slaveInfos, total, getAllSlaveRequest.getPageNum(), getAllSlaveRequest.getPageSize());
         return Result.success(slaveResult);
+    }
+
+    public Result updateSlave(UpdateSlave updateSlave){
+        SlaveInfo slaveInfo = new SlaveInfo();
+        BeanUtils.copyProperties(updateSlave,slaveInfo);
+        slaveInfo.setUpdateTime(new Date());
+        int result = slaveInfoMapper.updateByPrimaryKeySelective(slaveInfo);
+        Assert.isTrue(result > 0,"更新失败");
+        return Result.success("更新成功");
+    }
+
+    public Result deleteSlave(DeleteSlave deleteSlave){
+        int result = slaveInfoMapper.deleteByPrimaryKey(deleteSlave.getId());
+        Assert.isTrue(result > 0,"删除失败");
+        return Result.success("删除成功");
     }
 }

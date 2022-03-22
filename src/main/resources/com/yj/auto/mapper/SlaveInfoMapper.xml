@@ -37,11 +37,50 @@
       select
       <include refid="Base_Column_List" />
       from slave_info
+      where status = 1
       limit #{limit}
       offset #{offset}
     </select>
   <select id="getAllSalveCount" resultType="java.lang.Long">
-    select count(id) from slave_info
+    select
+    count(id)
+    from slave_info
+    where status = 1
+  </select>
+  <select id="selective" resultType="com.yj.auto.entity.SlaveInfo">
+    select
+    <include refid="Base_Column_List" />
+    from slave_info
+    where 1 = 1
+    <trim  suffixOverrides="and" >
+      <if test="id != null" >
+        id = #{id} and
+      </if>
+      <if test="name != null" >
+        name = #{name} and
+      </if>
+      <if test="ip != null" >
+        ip = #{ip} and
+      </if>
+      <if test="token != null" >
+        token = #{token} and
+      </if>
+      <if test="status != null" >
+        status = #{status} and
+      </if>
+      <if test="owner != null" >
+        owner = #{owner} and
+      </if>
+      <if test="password != null" >
+        password = #{password} and
+      </if>
+      <if test="createTime != null" >
+        create_time = #{create_time} and
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{update_time} and
+      </if>
+    </trim>
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
