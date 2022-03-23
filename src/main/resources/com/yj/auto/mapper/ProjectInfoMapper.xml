@@ -36,6 +36,91 @@
     from project_info
     where id = #{id,jdbcType=INTEGER}
   </select>
+    <select id="selective" resultType="com.yj.auto.entity.ProjectInfo">
+      select
+      <include refid="Base_Column_List"/>
+      from project_info
+      where 1 = 1
+      <trim suffixOverrides="and" >
+      <if test="record.id != null" >
+        and id = #{record.id}
+      </if>
+      <if test="record.name != null" >
+        and name = #{record.name}
+      </if>
+      <if test="record.gitAddress != null" >
+        and gitAddress = #{record.gitAddress}
+      </if>
+      <if test="record.describe != null" >
+        and describe = #{record.describe}
+      </if>
+      <if test="record.status != null" >
+        and status = #{record.status}
+      </if>
+      <if test="record.operator != null" >
+        and operator = #{record.operator}
+      </if>
+      <if test="record.iosDeveloper != null" >
+        and iosDeveloper = #{record.iosDeveloper}
+      </if>
+      <if test="record.androidDeveloper != null" >
+        and androidDeveloper = #{record.androidDeveloper}
+      </if>
+      <if test="record.lastPullTime != null" >
+        and lastPullTime = #{record.lastPullTime}
+      </if>
+      <if test="record.createTime != null" >
+        and createTime = #{record.createTime}
+      </if>
+      <if test="record.updateTime != null" >
+        and updateTime = #{record.updateTime}
+      </if>
+      </trim>
+      limit #{limit}
+      offset #{offset}
+    </select>
+  <select id="selectProjectCount" resultType="java.lang.Long">
+    select
+    count(id)
+    from project_info
+    where 1 = 1
+    <trim suffixOverrides="and" >
+      <if test="record.id != null" >
+        and id = #{record.id}
+      </if>
+      <if test="record.name != null" >
+        and name = #{record.name}
+      </if>
+      <if test="record.gitAddress != null" >
+        and gitAddress = #{record.gitAddress}
+      </if>
+      <if test="record.describe != null" >
+        and describe = #{record.describe}
+      </if>
+      <if test="record.status != null" >
+        and status = #{record.status}
+      </if>
+      <if test="record.operator != null" >
+        and operator = #{record.operator}
+      </if>
+      <if test="record.iosDeveloper != null" >
+        and iosDeveloper = #{record.iosDeveloper}
+      </if>
+      <if test="record.androidDeveloper != null" >
+        and androidDeveloper = #{record.androidDeveloper}
+      </if>
+      <if test="record.lastPullTime != null" >
+        and lastPullTime = #{record.lastPullTime}
+      </if>
+      <if test="record.createTime != null" >
+        and createTime = #{record.createTime}
+      </if>
+      <if test="record.updateTime != null" >
+        and updateTime = #{record.updateTime}
+      </if>
+    </trim>
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     <!--
       WARNING - @mbggenerated

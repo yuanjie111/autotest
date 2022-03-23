@@ -37,7 +37,7 @@ public class SlaveController {
 
     @RequestMapping("delete")
     public Result deleteSlave(@RequestBody @Valid DeleteSlave deleteSlave){
-        return slaveService.deleteSlave(deleteSlave);
+        return slaveService.deleteSlave(deleteSlave.getId());
     }
 
 }

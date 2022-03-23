@@ -2,12 +2,14 @@ package com.yj.auto.slave.service;
 
 import com.yj.auto.common.PageResult;
 import com.yj.auto.common.Result;
+import com.yj.auto.entity.ProjectInfo;
 import com.yj.auto.entity.SlaveInfo;
 import com.yj.auto.mapper.SlaveInfoMapper;
 import com.yj.auto.slave.dto.AddSlaveRequest;
 import com.yj.auto.slave.dto.DeleteSlave;
 import com.yj.auto.slave.dto.FindSlaveRequest;
 import com.yj.auto.slave.dto.UpdateSlave;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -51,12 +53,14 @@ public class SlaveService {
     }
 
 //    slave下线
-    public Result deleteSlave(DeleteSlave deleteSlave) {
-        SlaveInfo slaveInfo = new SlaveInfo();
-        BeanUtils.copyProperties(deleteSlave, slaveInfo);
-        slaveInfo.setStatus(0);
-        int result = slaveInfoMapper.updateByPrimaryKeySelective(slaveInfo);
-        Assert.isTrue(result > 0, "删除失败");
-        return Result.success("删除成功");
+    public Result deleteSlave(Long id) {
+        SlaveInfo slaveInfo = slaveInfoMapper.selectByPrimaryKey(id);
+        if(slaveInfo != null){
+            slaveInfo.setStatus(0);
+            int result = slaveInfoMapper.updateByPrimaryKeySelective(slaveInfo);
+            Assert.isTrue(result > 0,"删除失败");
+            return Result.success("删除失败");
+        }
+        return Result.error("300","不存在该记录");
     }
 }

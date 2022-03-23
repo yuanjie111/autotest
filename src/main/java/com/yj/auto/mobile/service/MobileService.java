@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -45,19 +46,27 @@ public class MobileService {
     public Result updateMobile(UpdateMobileRequest updateMobileRequest){
         MobileDetail mobileDetail = new MobileDetail();
         BeanUtils.copyProperties(updateMobileRequest,mobileDetail);
+        mobileDetail.setLastCheckTime(new Date());
         int result = mobileDetailMapper.updateByPrimaryKeySelective(mobileDetail);
         Assert.isTrue(result > 0,"修改失败");
         return Result.success("修改成功");
     }
 
     //下线手机
-    public Result deleteMobile(DeleteMobileRequest deleteMobileRequest){
+    public Result offlineMobile(DeleteMobileRequest deleteMobileRequest){
         MobileDetail mobileDetail = new MobileDetail();
-        BeanUtils.copyProperties(deleteMobileRequest,mobileDetail);
-        mobileDetail.setReadyState(2);
-        int result = mobileDetailMapper.updateByPrimaryKeySelective(mobileDetail);
-        Assert.isTrue(result > 0,"删除失败");
-        return Result.success("删除成功");
+        MobileDetail mobile = mobileDetailMapper.selectByPrimaryKey(deleteMobileRequest.getId());
+        if(mobile != null){
+            if(mobile.getStatus() == 1){
+                mobileDetail.setHeartbeatLastTime(new Date());
+            }
+            BeanUtils.copyProperties(deleteMobileRequest,mobileDetail);
+            mobileDetail.setReadyState(2);
+            int result = mobileDetailMapper.updateByPrimaryKeySelective(mobileDetail);
+            Assert.isTrue(result > 0,"删除失败");
+            return Result.success("删除成功");
+        }
+        return Result.error("300","不存在该数据");
     }
 
 }

@@ -9,11 +9,14 @@ public class AddMobileRequest {
 
     @NotNull(message = "name不能为空")
     private String name;
+
     @NotNull(message = "brand不能为空")
     private String brand;
-    @NotNull
+
+    @NotNull(message = "platform不能为空")
     private String platform;
-    @NotNull
+
+    @NotNull(message = "osVersion不能为空")
     private String osVersion;
 
     private String screenSize;
@@ -23,10 +26,11 @@ public class AddMobileRequest {
     private String clientId;
 
     private String udid;
-    @NotNull
+    
+    @NotNull(message = "slaveId不能为空")
     private Integer slaveId;
 
-    @NotNull
+    @NotNull(message = "deviceType不能为空")
     private Integer deviceType;
 
     private String password;

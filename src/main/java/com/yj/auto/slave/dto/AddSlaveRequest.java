@@ -6,9 +6,9 @@ import javax.validation.constraints.NotNull;
 
 @Data
 public class AddSlaveRequest {
-    @NotNull
+    @NotNull(message = "name不能为空")
     private String name;
-    @NotNull
+    @NotNull(message = "ip不能为空")
     private String ip;
 
     private String token;

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 /**
@@ -39,7 +40,9 @@ public class ExceptionAdvice {
     @ResponseBody
     public Result handleIllegalArgumentException(MethodArgumentNotValidException methodArgumentNotValidException){
         BindingResult bindingResult = methodArgumentNotValidException.getBindingResult();
-        List<String> collect = bindingResult.getAllErrors().stream().map(item -> item.getDefaultMessage()).collect(Collectors.toList());
+        List<String> collect = bindingResult.getAllErrors().stream()
+                .map(item -> item.getDefaultMessage())
+                .collect(Collectors.toList());
         return Result.builder().code("400").msg(JSON.toJSONString(collect)).build();
     }
 
