@@ -46,7 +46,6 @@ public class MobileService {
     public Result updateMobile(UpdateMobileRequest updateMobileRequest){
         MobileDetail mobileDetail = new MobileDetail();
         BeanUtils.copyProperties(updateMobileRequest,mobileDetail);
-        mobileDetail.setLastCheckTime(new Date());
         int result = mobileDetailMapper.updateByPrimaryKeySelective(mobileDetail);
         Assert.isTrue(result > 0,"修改失败");
         return Result.success("修改成功");

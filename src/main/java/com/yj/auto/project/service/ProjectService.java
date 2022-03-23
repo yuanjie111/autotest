@@ -52,6 +52,7 @@ public class ProjectService {
         ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(id);
         if(projectInfo != null){
             projectInfo.setStatus(0);
+            projectInfo.setUpdateTime(new Date());
             int result = projectInfoMapper.updateByPrimaryKeySelective(projectInfo);
             Assert.isTrue(result > 0,"删除失败");
             return Result.success("删除失败");

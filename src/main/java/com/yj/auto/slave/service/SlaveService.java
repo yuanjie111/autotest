@@ -57,6 +57,7 @@ public class SlaveService {
         SlaveInfo slave = slaveInfoMapper.selectByPrimaryKey(id);
         if(slave != null){
             slave.setStatus(0);
+            slave.setUpdateTime(new Date());
             int result = slaveInfoMapper.updateByPrimaryKeySelective(slave);
             Assert.isTrue(result > 0,"删除失败");
             return Result.success("删除失败");
