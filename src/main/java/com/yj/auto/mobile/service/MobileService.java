@@ -53,16 +53,14 @@ public class MobileService {
     }
 
     //下线手机
-    public Result offlineMobile(DeleteMobileRequest deleteMobileRequest){
-        MobileDetail mobileDetail = new MobileDetail();
-        MobileDetail mobile = mobileDetailMapper.selectByPrimaryKey(deleteMobileRequest.getId());
+    public Result offlineMobile(Integer id){
+        MobileDetail mobile = mobileDetailMapper.selectByPrimaryKey(id);
         if(mobile != null){
             if(mobile.getStatus() == 1){
-                mobileDetail.setHeartbeatLastTime(new Date());
+                mobile.setHeartbeatLastTime(new Date());
             }
-            BeanUtils.copyProperties(deleteMobileRequest,mobileDetail);
-            mobileDetail.setReadyState(2);
-            int result = mobileDetailMapper.updateByPrimaryKeySelective(mobileDetail);
+            mobile.setReadyState(2);
+            int result = mobileDetailMapper.updateByPrimaryKeySelective(mobile);
             Assert.isTrue(result > 0,"删除失败");
             return Result.success("删除成功");
         }

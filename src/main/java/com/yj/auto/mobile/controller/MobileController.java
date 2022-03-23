@@ -37,7 +37,7 @@ public class MobileController {
 
     @RequestMapping("delete")
     public Result deleteMobile(@RequestBody DeleteMobileRequest deleteMobileRequest){
-        return mobileService.offlineMobile(deleteMobileRequest);
+        return mobileService.offlineMobile(deleteMobileRequest.getId());
     }
 
 

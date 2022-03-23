@@ -54,10 +54,10 @@ public class SlaveService {
 
 //    slave下线
     public Result deleteSlave(Long id) {
-        SlaveInfo slaveInfo = slaveInfoMapper.selectByPrimaryKey(id);
-        if(slaveInfo != null){
-            slaveInfo.setStatus(0);
-            int result = slaveInfoMapper.updateByPrimaryKeySelective(slaveInfo);
+        SlaveInfo slave = slaveInfoMapper.selectByPrimaryKey(id);
+        if(slave != null){
+            slave.setStatus(0);
+            int result = slaveInfoMapper.updateByPrimaryKeySelective(slave);
             Assert.isTrue(result > 0,"删除失败");
             return Result.success("删除失败");
         }
