@@ -20,7 +20,7 @@ public class AddMobileRequest {
     private String osVersion;
 
     private String screenSize;
-
+    @NotNull(message = "deviceId不能为空")
     private String deviceId;
 
     private String clientId;

@@ -12,7 +12,7 @@ public class AddProjectRequest {
     @NotNull(message = "gitAddress不能为空")
     private String gitAddress;
 
-    private String describe;
+    private String desc;
 
     private String operator;
 

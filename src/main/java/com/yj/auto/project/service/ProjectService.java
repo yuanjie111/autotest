@@ -23,7 +23,7 @@ public class ProjectService {
 
     public Result addProject(AddProjectRequest addProjectRequest) {
         ProjectInfo projectInfo = new ProjectInfo();
-        BeanUtils.copyProperties(projectInfo, addProjectRequest);
+        BeanUtils.copyProperties(addProjectRequest, projectInfo);
         int result = projectInfoMapper.insertSelective(projectInfo);
         Assert.isTrue(result > 0, "添加失败");
         return Result.success("添加成功");
@@ -31,7 +31,7 @@ public class ProjectService {
 
     public Result findProject(FindProjectRequest findProjectRequest) {
         ProjectInfo projectInfo = new ProjectInfo();
-        BeanUtils.copyProperties(projectInfo, findProjectRequest);
+        BeanUtils.copyProperties(findProjectRequest, projectInfo);
         Long total = projectInfoMapper.selectProjectCount(projectInfo);
         List<ProjectInfo> projectInfos = projectInfoMapper.selective(projectInfo, findProjectRequest.getPageSize(),
                 (findProjectRequest.getPageNum() - 1) * findProjectRequest.getPageSize());
@@ -39,24 +39,24 @@ public class ProjectService {
         return Result.success(projectInfosResult);
     }
 
-    public Result updateProject(UpdateProjectRequest updateProjectRequest){
+    public Result updateProject(UpdateProjectRequest updateProjectRequest) {
         ProjectInfo projectInfo = new ProjectInfo();
-        BeanUtils.copyProperties(projectInfo, updateProjectRequest);
+        BeanUtils.copyProperties(updateProjectRequest, projectInfo);
         projectInfo.setUpdateTime(new Date());
         int result = projectInfoMapper.updateByPrimaryKeySelective(projectInfo);
         Assert.isTrue(result > 0, "修改失败");
         return Result.success("修改成功");
     }
 
-    public Result deleteProject(Integer id){
+    public Result deleteProject(Integer id) {
         ProjectInfo projectInfo = projectInfoMapper.selectByPrimaryKey(id);
-        if(projectInfo != null){
+        if (projectInfo != null) {
             projectInfo.setStatus(0);
             projectInfo.setUpdateTime(new Date());
             int result = projectInfoMapper.updateByPrimaryKeySelective(projectInfo);
-            Assert.isTrue(result > 0,"删除失败");
+            Assert.isTrue(result > 0, "删除失败");
             return Result.success("删除失败");
         }
-        return Result.error("300","不存在该记录");
+        return Result.error("300", "不存在该记录");
     }
 }

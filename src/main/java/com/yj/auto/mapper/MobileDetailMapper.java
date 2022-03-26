@@ -38,6 +38,8 @@ public interface MobileDetailMapper {
      */
     MobileDetail selectByPrimaryKey(Integer id);
 
+    MobileDetail selectByDeviceId(@Param("deviceId") String deviceId);
+
     List<MobileDetail> selective(@Param("record") MobileDetail record, @Param("limit") Integer limit, @Param("offset") Integer offset);
 
     Long selectMobileCount(@Param("record") MobileDetail record);
@@ -57,4 +59,6 @@ public interface MobileDetailMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(MobileDetail record);
+
+    int updateByDevices(@Param("devices") List<String> devices);
 }

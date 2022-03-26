@@ -24,7 +24,7 @@ public class SlaveController {
         return slaveService.addSlave(addSlaveRequest);
     }
 
-    @RequestMapping("getSalve")
+    @RequestMapping("find")
     public Result getAllSlave(@RequestBody FindSlaveRequest findSlaveRequest){
         return slaveService.findSlave(findSlaveRequest);
     }

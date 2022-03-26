@@ -12,7 +12,7 @@ public class FindProjectRequest extends PageRequest {
 
     private String gitAddress;
 
-    private String describe;
+    private String desc;
 
     private String operator;
 

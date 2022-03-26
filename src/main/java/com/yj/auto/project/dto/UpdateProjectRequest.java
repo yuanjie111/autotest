@@ -12,7 +12,7 @@ public class UpdateProjectRequest {
 
     private String gitAddress;
 
-    private String describe;
+    private String desc;
 
     private String operator;
 

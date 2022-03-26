@@ -139,6 +139,12 @@
         </if>
       </trim>
     </select>
+    <select id="selectByDeviceId" resultType="com.yj.auto.entity.MobileDetail">
+        select
+        <include refid="Base_Column_List"/>
+        from mobile_detail
+        where device_id = #{deviceId}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         <!--
           WARNING - @mbggenerated
@@ -371,5 +377,13 @@
         last_check_time = #{lastCheckTime,jdbcType=TIMESTAMP},
         heartbeat_last_time = #{heartbeatLastTime,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByDevices">
+        update mobile_detail
+        set ready_state = 0
+        where device_id not in
+        <foreach collection="devices" item="item" open = "(" close=")" separator=",">
+            #{item}
+        </foreach>
     </update>
 </mapper>
