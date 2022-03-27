@@ -14,6 +14,14 @@ public class AddProjectRequest {
 
     private String desc;
 
+    @NotNull(message = "token不能为空")
+    private String token;
+
+    @NotNull(message = "proId不能为空")
+    private Integer proId;
+
+    private Integer featurePath;
+
     private String operator;
 
     private String iosDeveloper;

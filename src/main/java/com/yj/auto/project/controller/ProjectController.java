@@ -37,4 +37,9 @@ public class ProjectController {
     public Result deleteProject(@RequestBody DeleteProjectRequest deleteProjectRequest){
         return projectService.deleteProject(deleteProjectRequest.getId());
     }
+
+    @RequestMapping("getFeatures")
+    public Result getFeatures(){
+        return projectService.getFeatures();
+    }
 }

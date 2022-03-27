@@ -40,6 +40,8 @@ public interface ProjectInfoMapper {
 
     Long selectProjectCount(@Param("record") ProjectInfo record);
 
+    List<ProjectInfo> selectByStatus(@Param("status") Integer status);
+
     List<ProjectInfo> selective(@Param("record") ProjectInfo record, @Param("limit") Integer limit, @Param("offset") Integer offset);
 
     /**
