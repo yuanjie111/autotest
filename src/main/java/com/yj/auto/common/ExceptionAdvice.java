@@ -41,7 +41,7 @@ public class ExceptionAdvice {
     public Result handleIllegalArgumentException(MethodArgumentNotValidException methodArgumentNotValidException){
         BindingResult bindingResult = methodArgumentNotValidException.getBindingResult();
         List<String> collect = bindingResult.getAllErrors().stream()
-                .map(item -> item.getDefaultMessage())
+                .map(ObjectError::getDefaultMessage)
                 .collect(Collectors.toList());
         return Result.builder().code("400").msg(JSON.toJSONString(collect)).build();
     }

@@ -3,25 +3,24 @@ package com.yj.auto.project.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
+import com.google.common.collect.Maps;
 import com.yj.auto.common.PageResult;
 import com.yj.auto.common.Result;
+import com.yj.auto.entity.FeatureInfo;
 import com.yj.auto.enums.StatusEnum;
 import com.yj.auto.entity.ProjectInfo;
+import com.yj.auto.mapper.FeatureInfoMapper;
 import com.yj.auto.mapper.ProjectInfoMapper;
-import com.yj.auto.project.dto.AddProjectRequest;
-import com.yj.auto.project.dto.FindProjectRequest;
-import com.yj.auto.project.dto.ProjectTreeResult;
-import com.yj.auto.project.dto.UpdateProjectRequest;
+import com.yj.auto.project.dto.*;
 import com.yj.auto.util.HttpUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ProjectService {
@@ -30,6 +29,8 @@ public class ProjectService {
     ProjectInfoMapper projectInfoMapper;
     @Resource
     HttpUtil httpUtil;
+    @Resource
+    FeatureInfoMapper featureInfoMapper;
 
     public Result addProject(AddProjectRequest addProjectRequest) {
         ProjectInfo projectInfo = new ProjectInfo();
@@ -70,22 +71,58 @@ public class ProjectService {
         return Result.error("300", "不存在该记录");
     }
 
-    public Result getFeatures(){
+    public Result getFeatures() {
+        List<FeatureInfo> features = new ArrayList<>();
         String url = "%s/api/v4/projects/%s/repository/tree";
         List<ProjectInfo> projectInfos = projectInfoMapper.selectByStatus(StatusEnum.INVALID.getCode());
-        for(ProjectInfo projectInfo:projectInfos){
+        for (ProjectInfo projectInfo : projectInfos) {
             String gitUrl = String.format(url, projectInfo.getGitAddress(), projectInfo.getProId());
-            Map<String,String> params = new HashMap<>();
-            String path = projectInfo.getFeaturePath() != null && projectInfo.getFeaturePath() != "" ? projectInfo.getFeaturePath():"src/main/java/features";
-            params.put("path",path);
-            Map<String,String> headers = new HashMap<>();
-            headers.put("PRIVATE-TOKEN",projectInfo.getToken());
-            String result = httpUtil.httpGet(gitUrl, params, headers);
-            JSONArray objects = JSONArray.parseArray(result);
-            for(int i=0;i <objects.size();i++){
-                objects.getJSONObject(i).getString("type");
+            Map<String, String> params = new HashMap<>();
+            String path = projectInfo.getFeaturePath() != null && projectInfo.getFeaturePath() != "" ? projectInfo.getFeaturePath() : "src/main/java/features";
+            params.put("path", path);
+            Map<String, String> headers = new HashMap<>();
+            headers.put("PRIVATE-TOKEN", projectInfo.getToken());
+            getProjectTree(gitUrl, path, headers, features, projectInfo);
+            features.forEach(featureInfo -> {
+                FeatureInfo feature = featureInfoMapper.selectByNameAndProjectId(featureInfo.getName(), featureInfo.getProjectId());
+                if(feature !=null){
+                    featureInfo.setUpdateTime(new Date());
+                    featureInfoMapper.updateByPrimaryKeySelective(featureInfo);
+                }else{
+                    featureInfoMapper.insert(featureInfo);
+                }
+            });
+            List<String> featureNames = features.stream().map(FeatureInfo::getName).collect(Collectors.toList());
+            List<FeatureInfo> featureInfos = featureInfoMapper.selectByNamesAndProjectId(featureNames, projectInfo.getId());
+            List<Integer> featureIds = featureInfos.stream().map(FeatureInfo::getId).collect(Collectors.toList());
+            if(featureIds.size()>0){
+                featureInfoMapper.deleteByIds(featureIds);
             }
         }
         return Result.success("feature获取成功");
+    }
+
+    private void getProjectTree(String url, String path, Map<String, String> headers, List<FeatureInfo> features, ProjectInfo project) {
+        String result;
+        Map<String, String> params = new HashMap<>();
+        params.put("path", path);
+        result = httpUtil.httpGet(url, params, headers);
+        List<ProjectTreeInfo> projectTreeInfoList = JSONArray.parseObject(result, new TypeReference<List<ProjectTreeInfo>>() {
+        });
+        projectTreeInfoList.forEach(projectTreeInfo -> {
+            if (projectTreeInfo.getType().equals("tree")) {
+                getProjectTree(url, path + "/" + projectTreeInfo.getName(), headers, features, project);
+            } else {
+                if (projectTreeInfo.getName().contains(".feature")) {
+                    FeatureInfo featureInfo = new FeatureInfo();
+                    featureInfo.setProjectId(project.getId());
+                    featureInfo.setName(projectTreeInfo.getName());
+                    featureInfo.setSmoke(projectTreeInfo.getName().contains("smoke")?1:0);
+                    featureInfo.setStatus(1);
+                    featureInfo.setOperator(project.getOperator());
+                    features.add(featureInfo);
+                }
+            }
+        });
     }
 }

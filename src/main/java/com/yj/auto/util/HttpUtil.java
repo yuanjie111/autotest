@@ -48,7 +48,6 @@ public class HttpUtil {
         HttpEntity<String> requestEntity = new HttpEntity<>(null,headers);
         ResponseEntity<String> resEntity = restTemplate.exchange(httpUrl, HttpMethod.GET, requestEntity, String.class);
         log.info("resEntity.getBody(): "+resEntity.getBody());
-        List<ProjectTreeInfo>  projectTreeInfoList= JSON.parseObject(resEntity.getBody(), new TypeReference<List<ProjectTreeInfo>>() {}.getType());
         return resEntity.getBody();
     }
 

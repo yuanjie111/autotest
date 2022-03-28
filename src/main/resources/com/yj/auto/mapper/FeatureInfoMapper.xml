@@ -33,6 +33,21 @@
     from feature_info
     where id = #{id,jdbcType=INTEGER}
   </select>
+    <select id="selectByNameAndProjectId" resultType="com.yj.auto.entity.FeatureInfo">
+      select
+      <include refid="Base_Column_List"/>
+      from feature_info
+      where name = #{name} and project_id = #{projectId}
+    </select>
+  <select id="selectByNamesAndProjectId" resultType="com.yj.auto.entity.FeatureInfo">
+    select
+    <include refid="Base_Column_List"></include>
+    from feature_info
+    where project_id = #{projectId} and `name` in
+    <foreach collection="names" item="name" open="(" close=")" separator=",">
+      #{name}
+    </foreach>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     <!--
       WARNING - @mbggenerated
@@ -40,6 +55,13 @@
     -->
     delete from feature_info
     where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByIds">
+    delete from feature_info
+    where id in
+    <foreach collection="Ids" item="id" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
   </delete>
   <insert id="insert" parameterType="com.yj.auto.entity.FeatureInfo" >
     <!--

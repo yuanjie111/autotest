@@ -290,4 +290,19 @@ public class FeatureInfo {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+    @Override
+    public String toString() {
+        return "FeatureInfo{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", projectId=" + projectId +
+                ", smoke=" + smoke +
+                ", scenariosNum=" + scenariosNum +
+                ", status=" + status +
+                ", operator='" + operator + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }
