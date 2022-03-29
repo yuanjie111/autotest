@@ -89,7 +89,7 @@ public class ProjectService {
                     featureInfo.setUpdateTime(new Date());
                     featureInfoMapper.updateByPrimaryKeySelective(featureInfo);
                 }else{
-                    featureInfoMapper.insert(featureInfo);
+                    featureInfoMapper.insertSelective(featureInfo);
                 }
             });
             List<String> featureNames = features.stream().map(FeatureInfo::getName).collect(Collectors.toList());

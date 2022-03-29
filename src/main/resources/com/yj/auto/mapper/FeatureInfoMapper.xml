@@ -58,7 +58,7 @@
   </delete>
   <delete id="deleteByIds">
     delete from feature_info
-    where id in
+    where id not in
     <foreach collection="Ids" item="id" open="(" close=")" separator=",">
       #{id}
     </foreach>
